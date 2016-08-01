@@ -1,0 +1,25 @@
+{
+  "name": "lambda-bundler",
+  "version": "1.0.0",
+  "main": "index.js",
+  "bin": {
+    "lambda-bundler": "./bin/lambda-bundler"
+  },
+  "scripts": {
+    "test": "semistandard ./lib"
+  },
+  "author": "Leonard Martin <hello@lennym.co.uk>",
+  "dependencies": {
+    "aws-sdk": "^2.4.11",
+    "bluebird": "^3.4.1",
+    "copy": "^0.3.0",
+    "env2": "^2.1.0",
+    "minimist": "^1.2.0",
+    "rimraf": "^2.5.4"
+  },
+  "devDependencies": {
+    "semistandard": "^8.0.0"
+  },
+  "license": "MIT",
+  "description": ""
+}
