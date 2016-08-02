@@ -113,7 +113,7 @@ Default: `process.env.AWS_IAM_ROLE`
 
 `Boolean|String` - If set, writes the current set of environment variables to a file and includes it in the bundle. If A string is passed then this defines the filename environment variables will be written to.
 
-Default: false - if set to a truthy, non-string then defaults to `'.env'`.
+Default: `false` - if set to a truthy, non-string then defaults to `'.env'`.
 
 ## Middleware
 
