@@ -1,6 +1,6 @@
 # lambda-bundler
 
-Script to deploy lambda functions to AWS from the command line
+Utility to deploy lambda functions to AWS from the command line with optional middleware
 
 ## Usage
 
@@ -108,7 +108,16 @@ Default: false - if set to a truthy, non-string then defaults to `'.env'`.
 
 You can define additional middleware functions to be called before your lambda function to provide common reusable functionality across lambdas in a seamless way.
 
-These are called with the same method signature as a lambda function - e.g. `function (event, context, callback) { /*...*/ }` - with the caveat that a middleware cannot return a value through its callback, only the first (error) argument to the callback is used, and passing an error will terminate execution of the middleware stack, and in turn the lambda.
+These are called with the same method signature as a lambda function, and can be synchronous or asynchronous - e.g.
+
+```javascript
+function (event, context, callback) {
+  /* your code here */
+  callback();
+}
+```
+
+With the caveat that a middleware cannot return a value through its callback, only the first (error) argument to the callback is used, and passing an error will terminate execution of the middleware stack, and in turn the lambda.
 
 These can be defined in your package.json as a `middleware` property of the `lambda-bundler` options. Middleware can be defined as module paths, either to local or npm modules, and are executed in the order that they are defined.
 
