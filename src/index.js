@@ -5,13 +5,14 @@ const pkg = require('./package.json')['lambda-bundler'] || {};
 const middleware = pkg.middleware || [];
 middleware.push(lambda);
 
+// create a recursive function which iterates through our middleware stack
 const stack = middleware.reduce((fn, key) => {
   let layer = key;
   if (typeof key === 'string') {
     layer = require(key);
   }
   if (typeof layer !== 'function' || layer.length !== 3) {
-    throw new Error(`Invalid middleware: ${key}`);
+    return (e, c, callback) => callback(new Error(`Invalid middleware: ${key}`));
   }
   return (event, context, callback) => {
     fn(event, context, (err, data) => {
@@ -22,7 +23,7 @@ const stack = middleware.reduce((fn, key) => {
       }
     });
   };
-}, (e, c, callback) => { callback(); });
+}, (e, c, callback) => callback());
 
 module.exports = {
   handler: stack
