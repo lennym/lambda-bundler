@@ -1,10 +1,18 @@
 # lambda-bundler
 
-Utility to deploy lambda functions to AWS from the command line with optional middleware
+Utility to deploy lambda functions to AWS from the command line with optional middleware.
 
 ## Usage
 
-Simply run from your project root directory:
+First, ensure your project's `main` module in question exports a lambda function. That is, your module looks something like:
+
+```javascript
+module.exports = function (event, context, callback) {
+  /*...*/
+}
+```
+
+Then you can simply run from your project root directory to deploy your lambda to AWS:
 
 ```shell
 npm install -g lambda-bundler
