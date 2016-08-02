@@ -12,6 +12,8 @@ module.exports = function (event, context, callback) {
 }
 ```
 
+And if you have not already, [ensure that your AWS credentials are correctly configured](#configuration).
+
 Then you can simply run from your project root directory to deploy your lambda to AWS:
 
 ```shell
@@ -39,14 +41,15 @@ npm run deploy
 
 ## Configuration
 
-Configuration of AWS credentials is done via environment variables. The following environment variables are required:
+Configuration of AWS credentials is done via environment variables. The following environment variables are required as a minimum:
 
 ```
 export AWS_ACCESS_KEY_ID=[redacted]
 export AWS_SECRET_ACCESS_KEY=[redacted]
 export AWS_IAM_ROLE=[redacted]
-export AWS_REGION=eu-west-1
 ```
+
+Additionally, the [region option](#region) can be configured with an environment variable of `AWS_REGION`.
 
 You may wish to keep these in a `.env` file in your project (**which you should add to .gitignore and NOT check into source control**). If you wish to load environment variables from a `.env` file then these can be loaded automatically by running:
 
