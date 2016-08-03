@@ -128,9 +128,50 @@ function (event, context, callback) {
 }
 ```
 
-With the caveat that a middleware cannot return a value through its callback, only the first (error) argument to the callback is used, and passing an error will terminate execution of the middleware stack, and in turn the lambda.
+A middleware cannot return a value through its callback - only modify the `event` and `context` parameters - only the first (error) argument to the callback is used, and passing an error will terminate execution of the middleware stack, and in turn the lambda.
 
-These can be defined in your package.json as a `middleware` property of the `lambda-bundler` options. Middleware can be defined as module paths, either to local or npm modules, and are executed in the order that they are defined.
+### Outbound Middleware
+
+Alternatively, if you would like your middleware to act on the response from a lambda, you can export an `outbound` function, which will be called with the arguments from the lambda callback. An outbound middleware can either modify the result, or throw an error.
+
+For example:
+
+```javascript
+const middleware = {
+  outbound: (err, result, done) => {
+    if (err) {
+      done(err);
+    } else {
+      result.myMiddlewareProperty = true;
+      done();
+    }
+  }
+}
+module.exports = middleware;
+```
+
+Note: errors passed in outbound middlewares will not terminate the middleware stack, and any errors received should be handled by passing through to the callback (unless you wish to "catch" an error).
+
+If you would like to use both an inbound and outbound function on your middleware, then you can specify `inbound` and `outbound` functions as follows:
+
+```javascript
+const middleware = {
+  inbound: (event, context, done) => {
+    // your code here
+    done();
+  }
+  outbound: (err, result, done) => {
+    // your code here
+    done(err);
+  }
+}
+module.exports = middleware;
+```
+
+
+### Defining Middleware
+
+Middleware can be defined in your package.json as a `middleware` property of the `lambda-bundler` options. Middleware can be defined as module paths, either to local or npm modules, and are executed in the order that they are defined.
 
 Example:
 
@@ -146,5 +187,3 @@ Example:
   }
 }
 ```
-
-Note: modules should export the middleware function directly.
