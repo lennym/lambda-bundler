@@ -6,7 +6,7 @@
     "lambda-bundler": "./bin/lambda-bundler"
   },
   "scripts": {
-    "test": "semistandard ./lib"
+    "test": "semistandard ./lib ./src"
   },
   "author": "Leonard Martin <hello@lennym.co.uk>",
   "dependencies": {
