@@ -1,7 +1,7 @@
 {
   "name": "lambda-bundler",
   "version": "1.0.0",
-  "description": "Utility to deploy lambda functions to AWS from the command line with optional middleware",
+  "description": "Utility to deploy lambda functions to AWS from the command line",
   "main": "index.js",
   "bin": {
     "lambda-bundler": "./bin/lambda-bundler"
@@ -29,8 +29,7 @@
     "serverless",
     "aws",
     "lambda",
-    "deploy",
-    "middleware"
+    "deploy"
   ],
   "license": "MIT"
 }
